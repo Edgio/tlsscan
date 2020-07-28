@@ -14,6 +14,7 @@
 #include "protocol.h"
 #include "conn.h"
 #include "tls_conn.h"
+#include "missing_ciphersuites.h"
 #include "ndebug.h"
 #include <string.h>
 #include <arpa/inet.h>
@@ -436,6 +437,23 @@ static int32_t vb_gen_cipher_suites(vb_t& ao_cipher_suites, protocol_t a_protoco
         {
                 _VB_APPEND_OBJ(ao_cipher_suites, g_blk_tlsv13_cipher_suites);
                 return STATUS_OK;
+        }
+        // -------------------------------------------------
+        // append from missing ciphers
+        // -------------------------------------------------
+        // -hack!!! -presumes len of g_missing_ciphersuites
+        uint32_t l_len = 600;
+        for(uint32_t i_c = 0; i_c < l_len; ++i_c)
+        {
+                // skip private cipher prefix
+                const char* l_p = g_missing_ciphersuites[i_c].m_protocol_name;
+                if(strstr(l_p, "PRIVATE_CIPHER_"))
+                {
+                        continue;
+                }
+                // append
+                uint16_t l_id = g_missing_ciphersuites[i_c].m_id;
+                _VB_APPEND_UINT16(ao_cipher_suites, l_id);
         }
         return STATUS_OK;
 }
@@ -895,7 +913,7 @@ int32_t check_tls(const host_info& a_host_info, protocol_t a_protocol)
         // ???
         // -------------------------------------------------
         bool l_include_server_sig = false;
-#if 0
+#if 1
         if(a_protocol == PROTOCOL_TLSv1_3)
         {
                 l_include_server_sig = true;
@@ -989,6 +1007,7 @@ int32_t check_tls(const host_info& a_host_info, protocol_t a_protocol)
         l_s = l_conn.connect();
         if(l_s != STATUS_OK)
         {
+                NDBG_PRINT("error: performing connect.\n");
                 return STATUS_ERROR;
         }
         // -------------------------------------------------

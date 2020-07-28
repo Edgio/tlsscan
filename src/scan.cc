@@ -14,6 +14,7 @@
 #include "ndebug.h"
 #include "scan.h"
 #include "cert.h"
+#include "missing_ciphersuites.h"
 #include "protocol.h"
 #include <openssl/ssl.h>
 #include <string>
@@ -188,6 +189,14 @@ int32_t scan_host(const host_info& a_host_info,
                     ++i_c)
                 {
                         printf("    %s\n",i_c->c_str());
+                }
+                printf("\n");
+                printf("  %sDirectly-Supported Client Cipher(s):%s\n", ANSI_COLOR_FG_BLUE, ANSI_COLOR_OFF);
+                // -hack!!! -presumes len of g_missing_ciphersuites
+                uint32_t l_mc_len = 600;
+                for(uint32_t i = 0; i < l_mc_len; ++i)
+                {
+                        printf("    %s\n", g_missing_ciphersuites[i].m_protocol_name);
                 }
                 printf("\n");
         }

@@ -26,6 +26,7 @@ SET(SRCS
     conn.cc
     tls_conn.cc
     cert.cc
+    missing_ciphersuites.cc
     protocol.cc
     scan.cc
     main.cc

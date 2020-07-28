@@ -24,6 +24,7 @@
 #include "conn.h"
 #include "ndebug.h"
 #include "host_info.h"
+#include "missing_ciphersuites.h"
 #include "tls_conn.h"
 #include "scan.h"
 //: ----------------------------------------------------------------------------
@@ -361,6 +362,12 @@ int main(int argc, char** argv)
         SSL_library_init();
         //SSLeay_add_all_algorithms();
         ERR_load_crypto_strings();
+        // -------------------------------------------------
+        // init...
+        // find missing ciphers
+        // build the list of ciphers missing from OpenSSL.
+        // -------------------------------------------------
+        ns_tlsscan::get_missing_ciphers();
         // -------------------------------------------------
         // resolve
         // -------------------------------------------------
