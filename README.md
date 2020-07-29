@@ -26,6 +26,12 @@ Run the `build.sh` script to pull down OpenSSL and build
 ./build.sh
 ```
 
+### OS X Build requirements (brew)
+```bash
+brew install cmake
+brew install dpkg
+```
+
 ### Installation
 Install from the build directory with
 ```sh
