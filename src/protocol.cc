@@ -217,7 +217,7 @@ static const char *g_protocol_strings[] =
 //: ----------------------------------------------------------------------------
 //: tlsv12
 //: ----------------------------------------------------------------------------
-static const uint8_t g_tlsv12_opt[32] {
+static const uint8_t g_tlsv12_opt[] = {
         0x00, 0x0a, // ext: supported_groups (10)
         0x00, 0x1c, // ext: length (28)
         0x00, 0x1a, // Supported Groups List Length (26)
@@ -238,7 +238,7 @@ static const uint8_t g_tlsv12_opt[32] {
 //: ----------------------------------------------------------------------------
 //: tlsv13
 //: ----------------------------------------------------------------------------
-static const uint8_t g_tlsv13_opt[26] {
+static const uint8_t g_tlsv13_opt[] = {
         0x00, 0x0a, // ext: supported_groups (10)
         0x00, 0x16, // ext: length (22)
         0x00, 0x14, // Supported Groups List Length (20)
@@ -256,7 +256,7 @@ static const uint8_t g_tlsv13_opt[26] {
 //: ----------------------------------------------------------------------------
 //: sslv2 client l_hello
 //: ----------------------------------------------------------------------------
-static const uint8_t g_sslv2_hello[54] = {
+static const uint8_t g_sslv2_hello[] = {
         0x80,
         0x34,             // Length: 52
         0x01,             // Handshake Message Type: client hello
@@ -278,7 +278,7 @@ static const uint8_t g_sslv2_hello[54] = {
 //: ----------------------------------------------------------------------------
 //: sslv3 client l_hello pt 1
 //: ----------------------------------------------------------------------------
-static const uint8_t g_sslv3_hello_pt1[11] =
+static const uint8_t g_sslv3_hello_pt1[] =
 {
         0x16,             // Content Type: Handshake (22)
         0x03, 0x00,       // Version SSL 3.0
@@ -2113,8 +2113,7 @@ int32_t check_groups(const host_info& a_host_info, protocol_t a_protocol)
         // -------------------------------------------------
         else
         {
-                static uint8_t s_ciphers_sniffed[170]
-                {
+                static uint8_t s_ciphers_sniffed[] = {
                         0xc0, 0x30, 0xc0, 0x2c, 0xc0, 0x28, 0xc0, 0x24,
                         0xc0, 0x14, 0xc0, 0x0a, 0x00, 0xa5, 0x00, 0xa3,
                         0x00, 0xa1, 0x00, 0x9f, 0x00, 0x6b, 0x00, 0x6a,
@@ -2289,8 +2288,7 @@ int32_t check_groups(const host_info& a_host_info, protocol_t a_protocol)
                 // add supported_groups extension.
                 // add the one group testing for.
                 // -----------------------------------------
-                static uint8_t s_ext_groups[6]
-                {
+                static uint8_t s_ext_groups[] = {
                         0x00, 0x0a, // ext type: supported_groups (10)
                         0x00, 0x04, // ext Length (4)
                         0x00, 0x02, // Supported Groups List Length (2)
@@ -2304,8 +2302,7 @@ int32_t check_groups(const host_info& a_host_info, protocol_t a_protocol)
                 if(a_protocol == PROTOCOL_TLSv1_3)
                 {
                         uint16_t l_kx_len = (uint16_t)(l_key_exchange.size());
-                        static uint8_t s_ext_type_ks[2]
-                        {
+                        static uint8_t s_ext_type_ks[] = {
                                 0x00, 0x33, // ext type: key_share (51)
                         };
                         _VB_APPEND_OBJ(l_tls_ext, s_ext_type_ks);  // ext type: key_share (51)
