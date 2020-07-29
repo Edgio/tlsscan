@@ -52,7 +52,7 @@ int32_t conn::connect(void)
         //           m_host_info);
         errno = 0;
         m_fd = ::socket(m_host_info.m_sock_family,
-                        m_host_info.m_sock_type | SOCK_CLOEXEC,
+                        m_host_info.m_sock_type,
                         m_host_info.m_sock_protocol);
         //NDBG_PRINT("%sSOCKET %s[%3d]: \n", ANSI_COLOR_BG_BLUE, ANSI_COLOR_OFF, m_fd);
         if(m_fd < 0)
