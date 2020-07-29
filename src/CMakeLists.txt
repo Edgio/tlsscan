@@ -8,6 +8,7 @@ project(tlsscan)
 add_definitions(-Wall)
 add_definitions(-Werror)
 add_definitions(-Weffc++)
+add_definitions(-Wno-deprecated-declarations)
 # ------------------------------------------------------------------------------
 # include paths
 # ------------------------------------------------------------------------------

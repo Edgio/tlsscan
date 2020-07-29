@@ -127,10 +127,6 @@ message("    Package Version:                           ${CPACK_DEBIAN_PACKAGE_V
 message("")
 INCLUDE(CPack)
 # ------------------------------------------------------------------------------
-# Compiler options
-# ------------------------------------------------------------------------------
-add_definitions(-O2 -Wno-format-truncation -Wno-deprecated-declarations)
-# ------------------------------------------------------------------------------
 # include source and test directories
 # ------------------------------------------------------------------------------
 add_subdirectory(src)
