@@ -340,16 +340,18 @@ int main(int argc, char** argv)
         // -------------------------------------------------
         // check for port
         // -------------------------------------------------
-        std::string l_port_str;
-        uint16_t l_port = 443;
-        size_t l_start = 0U;
+        l_scan_opt.m_port = 443;
         std::string l_host_str = l_host;
         size_t l_end = l_host_str.find(':');
         if(l_end != std::string::npos)
         {
+                size_t l_start = 0U;
+                std::string l_port_str;
+                uint16_t l_port = 443;
                 l_host     = l_host_str.substr(l_start, l_end - l_start);
                 l_port_str = l_host_str.substr(l_host.length()+1, l_end);
                 l_port = (uint16_t)strtoul(l_port_str.c_str(), NULL, 10);
+                l_scan_opt.m_port = l_port;
         }
         if(l_host.empty())
         {
@@ -372,7 +374,7 @@ int main(int argc, char** argv)
         // resolve
         // -------------------------------------------------
         ns_tlsscan::host_info l_host_info;
-        l_s = ns_tlsscan::lookup(l_host, l_port, l_host_info, l_ai_family);
+        l_s = ns_tlsscan::lookup(l_host, l_scan_opt.m_port, l_host_info, l_ai_family);
         if(l_s != STATUS_OK)
         {
                 goto cleanup;
