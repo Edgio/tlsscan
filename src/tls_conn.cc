@@ -1,15 +1,15 @@
-//: ----------------------------------------------------------------------------
-//: Copyright Verizon.
-//:
-//: \file:    tls_conn.cc
-//: \details: TODO
-//:
-//: Licensed under the terms of the Apache 2.0 open source license.
-//: Please refer to the LICENSE file in the project root for the terms.
-//: ----------------------------------------------------------------------------
-//: ----------------------------------------------------------------------------
-//: includes
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! Copyright Verizon.
+//!
+//! \file:    tls_conn.cc
+//! \details: TODO
+//!
+//! Licensed under the terms of the Apache 2.0 open source license.
+//! Please refer to the LICENSE file in the project root for the terms.
+//! ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! includes
+//! ----------------------------------------------------------------------------
 #include <unistd.h>
 #include <string.h>
 #include <errno.h>
@@ -21,20 +21,20 @@
 #include "tls_conn.h"
 #include "ndebug.h"
 #include "def.h"
-//: ----------------------------------------------------------------------------
-//: constants
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! constants
+//! ----------------------------------------------------------------------------
 #ifndef CIPHERSUITE_LIST_ALL
 #define CIPHERSUITE_LIST_ALL "ALL:COMPLEMENTOFALL"
 #endif
 namespace ns_tlsscan {
-//: ----------------------------------------------------------------------------
-//: \details Callback set w/ SSL_set_security_callback() and
-//:                   SSL_CTX_set_security_callback().
-//:                   Allows all weak algorithms.
-//: \return  TODO
-//: \param   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details Callback set w/ SSL_set_security_callback() and
+//!                   SSL_CTX_set_security_callback().
+//!                   Allows all weak algorithms.
+//! \return  TODO
+//! \param   TODO
+//! ----------------------------------------------------------------------------
 static int security_callback_allow_all(const SSL *s,
                                        const SSL_CTX *ctx,
                                        int op,
@@ -45,11 +45,11 @@ static int security_callback_allow_all(const SSL *s,
 {
         return 1;
 }
-//: ----------------------------------------------------------------------------
-//: \details: TODO
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: TODO
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 typedef std::map <std::string, long>tls_options_map_t;
 tls_options_map_t g_tls_options_map;
 int32_t get_tls_options_str_val(const std::string& a_options_str, long &ao_val)
@@ -99,11 +99,11 @@ int32_t get_tls_options_str_val(const std::string& a_options_str, long &ao_val)
         //NDBG_PRINT("ao_val: 0x%08lX\n", ao_val);
         return STATUS_OK;
 }
-//: ----------------------------------------------------------------------------
-//: \details TODO
-//: \return  TODO
-//: \param   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details TODO
+//! \return  TODO
+//! \param   TODO
+//! ----------------------------------------------------------------------------
 tls_conn::tls_conn(const host_info& a_host_info,
                    long a_tls_options,
                    SSL_CTX* a_ctx):
@@ -133,20 +133,20 @@ tls_conn::tls_conn(const host_info& a_host_info,
                 m_ctx_ext_flag = true;
         }
 }
-//: ----------------------------------------------------------------------------
-//: \details TODO
-//: \return  TODO
-//: \param   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details TODO
+//! \return  TODO
+//! \param   TODO
+//! ----------------------------------------------------------------------------
 tls_conn::~tls_conn(void)
 {
         cleanup();
 }
-//: ----------------------------------------------------------------------------
-//: \details TODO
-//: \return  TODO
-//: \param   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details TODO
+//! \return  TODO
+//! \param   TODO
+//! ----------------------------------------------------------------------------
 int32_t tls_conn::connect(void)
 {
         int32_t l_s;
@@ -358,11 +358,11 @@ int32_t tls_conn::connect(void)
         }
         return STATUS_OK;
 }
-//: ----------------------------------------------------------------------------
-//: \details TODO
-//: \return  TODO
-//: \param   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details TODO
+//! \return  TODO
+//! \param   TODO
+//! ----------------------------------------------------------------------------
 int32_t tls_conn::cleanup(void)
 {
         int32_t l_s;

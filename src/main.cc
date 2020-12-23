@@ -1,15 +1,15 @@
-//: ----------------------------------------------------------------------------
-//: Copyright Verizon.
-//:
-//: \file:    main.cc
-//: \details: TODO
-//:
-//: Licensed under the terms of the Apache 2.0 open source license.
-//: Please refer to the LICENSE file in the project root for the terms.
-//: ----------------------------------------------------------------------------
-//: ----------------------------------------------------------------------------
-//: includes
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! Copyright Verizon.
+//!
+//! \file:    main.cc
+//! \details: TODO
+//!
+//! Licensed under the terms of the Apache 2.0 open source license.
+//! Please refer to the LICENSE file in the project root for the terms.
+//! ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! includes
+//! ----------------------------------------------------------------------------
 #include <string>
 #include <stdio.h>
 #include <getopt.h>
@@ -27,11 +27,11 @@
 #include "missing_ciphersuites.h"
 #include "tls_conn.h"
 #include "scan.h"
-//: ----------------------------------------------------------------------------
-//: \details: sigint signal handler
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: sigint signal handler
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 void sig_handler(int signo)
 {
         if (signo == SIGINT)
@@ -39,11 +39,11 @@ void sig_handler(int signo)
                 //g_srvr->stop();
         }
 }
-//: ----------------------------------------------------------------------------
-//: \details: Print the version.
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: Print the version.
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 void print_version(FILE* a_stream, int a_exit_code)
 {
         // print out the version information
@@ -53,12 +53,12 @@ void print_version(FILE* a_stream, int a_exit_code)
         fprintf(a_stream, "       OpenSSL Version: %s\n", SSLeay_version(SSLEAY_VERSION));
         exit(a_exit_code);
 }
-//: ----------------------------------------------------------------------------
-//: \details: Print the command line help.
-//: \return:  NA
-//: \param:   a_stream FILE *
-//: \param:   a_exit_code exit code
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: Print the command line help.
+//! \return:  NA
+//! \param:   a_stream FILE *
+//! \param:   a_exit_code exit code
+//! ----------------------------------------------------------------------------
 static void print_usage(FILE* a_stream, int a_exit_code)
 {
         fprintf(a_stream, "Usage: tlsscan [options]\n");
@@ -89,12 +89,12 @@ static void print_usage(FILE* a_stream, int a_exit_code)
 #endif
         exit(a_exit_code);
 }
-//: ----------------------------------------------------------------------------
-//: \details main
-//: \return  0 on success
-//:          -1 on error
-//: \param   argc/argv...
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details main
+//! \return  0 on success
+//!          -1 on error
+//! \param   argc/argv...
+//! ----------------------------------------------------------------------------
 int main(int argc, char** argv)
 {
         // -------------------------------------------------
