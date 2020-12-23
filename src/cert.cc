@@ -1,15 +1,15 @@
-//: ----------------------------------------------------------------------------
-//: Copyright Verizon.
-//:
-//: \file:    cert.cc
-//: \details: TODO
-//:
-//: Licensed under the terms of the Apache 2.0 open source license.
-//: Please refer to the LICENSE file in the project root for the terms.
-//: ----------------------------------------------------------------------------
-//: ----------------------------------------------------------------------------
-//: includes
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! Copyright Verizon.
+//!
+//! \file:    cert.cc
+//! \details: TODO
+//!
+//! Licensed under the terms of the Apache 2.0 open source license.
+//! Please refer to the LICENSE file in the project root for the terms.
+//! ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! includes
+//! ----------------------------------------------------------------------------
 #include <string.h>
 #include "cert.h"
 #include "def.h"
@@ -20,11 +20,11 @@
 // hacked in include
 #include <crypto/ocsp/ocsp_local.h>
 namespace ns_tlsscan {
-//: ----------------------------------------------------------------------------
-//: \details: print out the full certificate
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: print out the full certificate
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 int32_t show_cert(const host_info& a_host_info, long a_tls_options)
 {
         int32_t l_ret = STATUS_OK;
@@ -302,11 +302,11 @@ cleanup:
         }
         return l_ret;
 }
-//: ----------------------------------------------------------------------------
-//: \details: print out the list of trusted CAs
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: print out the list of trusted CAs
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 int32_t show_trust_ca(const host_info& a_host_info, long a_tls_options)
 {
         int32_t l_ret = STATUS_OK;
@@ -379,11 +379,11 @@ cleanup:
         }
         return l_ret;
 }
-//: ----------------------------------------------------------------------------
-//: \details: TODO
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: TODO
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 int32_t check_cert_protocol(const host_info& a_host_info, long a_tls_options)
 {
         int32_t l_ret = STATUS_OK;
@@ -716,11 +716,11 @@ cleanup:
         }
         return l_ret;
 }
-//: ----------------------------------------------------------------------------
-//: \details: load client certificates/private keys...
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: load client certificates/private keys...
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 #if 0
 int loadCerts(struct tls_check_opt *options)
 {
@@ -835,14 +835,14 @@ int loadCerts(struct tls_check_opt *options)
                 return false;
 }
 #endif
-//: ----------------------------------------------------------------------------
-//: util
-//: ----------------------------------------------------------------------------
-//: ----------------------------------------------------------------------------
-//: \details: TODO
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! util
+//! ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: TODO
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 static int ocsp_certid_print(BIO *l_stdout_bp, OCSP_CERTID *a, int a_indent)
 {
         BIO_printf(l_stdout_bp, "%*sCertificate ID:\n",    a_indent, ""); a_indent += 2;
@@ -853,11 +853,11 @@ static int ocsp_certid_print(BIO *l_stdout_bp, OCSP_CERTID *a, int a_indent)
         BIO_printf(l_stdout_bp, "\n");
         return 1;
 }
-//: ----------------------------------------------------------------------------
-//: \details: TODO
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: TODO
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 static int ocsp_resp_cb(SSL *a_ssl, void *a_unused)
 {
         BIO *l_stdout_bp = NULL;
@@ -1091,11 +1091,11 @@ cleanup:
         //BIO_free(l_stdout_bp);
         return 1;
 }
-//: ----------------------------------------------------------------------------
-//: \details: request a stapled OCSP request from the server.
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: request a stapled OCSP request from the server.
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 int32_t check_ocsp_request(const host_info& a_host_info, long a_tls_options)
 {
         // -------------------------------------------------

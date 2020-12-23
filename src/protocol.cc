@@ -1,15 +1,15 @@
-//: ----------------------------------------------------------------------------
-//: Copyright Verizon.
-//:
-//: \file:    protocol.cc
-//: \details: TODO
-//:
-//: Licensed under the terms of the Apache 2.0 open source license.
-//: Please refer to the LICENSE file in the project root for the terms.
-//: ----------------------------------------------------------------------------
-//: ----------------------------------------------------------------------------
-//: includes
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! Copyright Verizon.
+//!
+//! \file:    protocol.cc
+//! \details: TODO
+//!
+//! Licensed under the terms of the Apache 2.0 open source license.
+//! Please refer to the LICENSE file in the project root for the terms.
+//! ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! includes
+//! ----------------------------------------------------------------------------
 #include "def.h"
 #include "protocol.h"
 #include "conn.h"
@@ -22,17 +22,17 @@
 #include <openssl/err.h>
 #include <list>
 #include <vector>
-//: ----------------------------------------------------------------------------
-//: defines...
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! defines...
+//! ----------------------------------------------------------------------------
 #define _MAX_CIPHERS_STR_LEN  65536
 #define _TLSV13_CIPHERSUITES    "TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_CCM_SHA256:TLS_AES_128_CCM_8_SHA256"
 #define _CIPHERSUITE_LIST_ALL   "ALL:COMPLEMENTOFALL"
 #define _CIPHERSUITE_LIST_OTHER "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:DHE-RSA-AES256-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES256-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES128-SHA:RSA-PSK-AES256-GCM-SHA384:DHE-PSK-AES256-GCM-SHA384:RSA-PSK-CHACHA20-POLY1305:DHE-PSK-CHACHA20-POLY1305:ECDHE-PSK-CHACHA20-POLY1305:AES256-GCM-SHA384:PSK-AES256-GCM-SHA384:PSK-CHACHA20-POLY1305:RSA-PSK-AES128-GCM-SHA256:DHE-PSK-AES128-GCM-SHA256:AES128-GCM-SHA256:PSK-AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:ECDHE-PSK-AES256-CBC-SHA384:ECDHE-PSK-AES256-CBC-SHA:SRP-RSA-AES-256-CBC-SHA:SRP-AES-256-CBC-SHA:RSA-PSK-AES256-CBC-SHA384:DHE-PSK-AES256-CBC-SHA384:RSA-PSK-AES256-CBC-SHA:DHE-PSK-AES256-CBC-SHA:AES256-SHA:PSK-AES256-CBC-SHA384:PSK-AES256-CBC-SHA:ECDHE-PSK-AES128-CBC-SHA256:ECDHE-PSK-AES128-CBC-SHA:SRP-RSA-AES-128-CBC-SHA:SRP-AES-128-CBC-SHA:RSA-PSK-AES128-CBC-SHA256:DHE-PSK-AES128-CBC-SHA256:RSA-PSK-AES128-CBC-SHA:DHE-PSK-AES128-CBC-SHA:AES128-SHA:PSK-AES128-CBC-SHA256:PSK-AES128-CBC-SHA:SRP-DSS-AES-256-CBC-SHA:DHE-DSS-AES256-SHA:DH-RSA-AES256-SHA:DH-DSS-AES256-SHA:DHE-RSA-CAMELLIA256-SHA:DHE-DSS-CAMELLIA256-SHA:DH-RSA-CAMELLIA256-SHA:DH-DSS-CAMELLIA256-SHA:ECDH-RSA-AES256-SHA:ECDH-ECDSA-AES256-SHA:CAMELLIA256-SHA:SRP-DSS-AES-128-CBC-SHA:DHE-DSS-AES128-SHA:DH-RSA-AES128-SHA:DH-DSS-AES128-SHA:DHE-RSA-SEED-SHA:DHE-DSS-SEED-SHA:DH-RSA-SEED-SHA:DH-DSS-SEED-SHA:DHE-RSA-CAMELLIA128-SHA:DHE-DSS-CAMELLIA128-SHA:DH-RSA-CAMELLIA128-SHA:DH-DSS-CAMELLIA128-SHA:ECDH-RSA-AES128-SHA:ECDH-ECDSA-AES128-SHA:SEED-SHA:CAMELLIA128-SHA:ECDHE-RSA-RC4-SHA:ECDHE-ECDSA-RC4-SHA:ECDH-RSA-RC4-SHA:ECDH-ECDSA-RC4-SHA:RC4-SHA:RC4-MD5:PSK-RC4-SHA:ECDHE-RSA-DES-CBC3-SHA:ECDHE-ECDSA-DES-CBC3-SHA:SRP-DSS-3DES-EDE-CBC-SHA:SRP-RSA-3DES-EDE-CBC-SHA:SRP-3DES-EDE-CBC-SHA:EDH-RSA-DES-CBC3-SHA:EDH-DSS-DES-CBC3-SHA:DH-RSA-DES-CBC3-SHA:DH-DSS-DES-CBC3-SHA:ECDH-RSA-DES-CBC3-SHA:ECDH-ECDSA-DES-CBC3-SHA:DES-CBC3-SHA:PSK-3DES-EDE-CBC-SHA"
 #define _TLS_RECORD_SIZE        (16*1024*1024)
-//: ----------------------------------------------------------------------------
-//: macros
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! macros
+//! ----------------------------------------------------------------------------
 // ---------------------------------------------------------
 // append vb
 // ---------------------------------------------------------
@@ -88,13 +88,13 @@
         std::copy((uint8_t *)(&_tmp), (uint8_t *)(&_tmp)+sizeof(_tmp), _vb.begin() + 0); \
 } while(0)
 namespace ns_tlsscan {
-//: ----------------------------------------------------------------------------
-//: types
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! types
+//! ----------------------------------------------------------------------------
 typedef std::vector<uint8_t> vb_t;
-//: ----------------------------------------------------------------------------
-//: ext: tlsv13 cipher suites
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! ext: tlsv13 cipher suites
+//! ----------------------------------------------------------------------------
 static const uint8_t g_blk_tlsv13_cipher_suites[] =
 {
         0x13, 0x01, // TLS_AES_128_GCM_SHA256
@@ -103,9 +103,9 @@ static const uint8_t g_blk_tlsv13_cipher_suites[] =
         0x13, 0x04, // TLS_AES_128_CCM_SHA256
         0x13, 0x05, // TLS_AES_128_CCM_8_SHA256
 };
-//: ----------------------------------------------------------------------------
-//: ext: ec_point_formats
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! ext: ec_point_formats
+//! ----------------------------------------------------------------------------
 static const uint8_t g_blk_ext_ec_points_formats[] =
 {
         0x00, 0x0b, // ext: ec_point_formats (11)
@@ -115,17 +115,17 @@ static const uint8_t g_blk_ext_ec_points_formats[] =
         0x01,       // ansiX962_compressed_prime
         0x02,       // ansiX962_compressed_char2
 };
-//: ----------------------------------------------------------------------------
-//: ext: session ticket
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! ext: session ticket
+//! ----------------------------------------------------------------------------
 static const uint8_t g_blk_ext_session_ticket[] =
 {
         0x00, 0x23, // ext: session ticket tls (35)
         0x00, 0x00, // ext: length (0)
 };
-//: ----------------------------------------------------------------------------
-//: ext: signature algorithms
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! ext: signature algorithms
+//! ----------------------------------------------------------------------------
 static const uint8_t g_blk_ext_sig_algos[] =
 {
         0x00, 0x0d, // ext: signature_algorithms (13)
@@ -155,9 +155,9 @@ static const uint8_t g_blk_ext_sig_algos[] =
         0x02, 0x02, // SHA1 DSA
         0x02, 0x03, // ecdsa_sha1
 };
-//: ----------------------------------------------------------------------------
-//: ext: supported groups
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! ext: supported groups
+//! ----------------------------------------------------------------------------
 static const uint8_t g_blk_ext_supported_groups[] =
 {
         0x00, 0x0a, // ext: supported_groups (10)
@@ -174,9 +174,9 @@ static const uint8_t g_blk_ext_supported_groups[] =
         0x01, 0x03, // FFDHE6144
         0x01, 0x04, // FFDHE8192
 };
-//: ----------------------------------------------------------------------------
-//: ext: default key share
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! ext: default key share
+//! ----------------------------------------------------------------------------
 static const uint8_t g_blk_ext_default_key_share[] =
 {
         0x00, 0x33, // ext: key_share (51)
@@ -185,9 +185,9 @@ static const uint8_t g_blk_ext_default_key_share[] =
         0x00, 0x1d, // Group ID (X25519)
         0x00, 0x20, // Key Exchange Length (32)
 };
-//: ----------------------------------------------------------------------------
-//: ext: tlsv1.3 supported version
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! ext: tlsv1.3 supported version
+//! ----------------------------------------------------------------------------
 static const uint8_t g_blk_ext_tlsv13[] =
 {
         0x00, 0x2b, // ext: supported_versions (43)
@@ -195,28 +195,28 @@ static const uint8_t g_blk_ext_tlsv13[] =
         0x02,       // supported versions Length
         0x03, 0x04, // supported version: TLS v1.3
 };
-//: ----------------------------------------------------------------------------
-//: ext: sig algo: add signature_algorithms extension.
-//:      only add one group testing for.
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! ext: sig algo: add signature_algorithms extension.
+//!      only add one group testing for.
+//! ----------------------------------------------------------------------------
 static const uint8_t g_blk_ext_sig_algo[] =
 {
         0x00, 0x0d, // ext: signature_algorithms (13)
         0x00, 0x04, // ext: Length (4)
         0x00, 0x02, // signature hash algorithms list length (2)
 };
-//: ----------------------------------------------------------------------------
-//: protocol strings
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! protocol strings
+//! ----------------------------------------------------------------------------
 static const char *g_protocol_strings[] =
 {
 #define _XX(num, name, string) #string,
         PROTOCOL_MAP(_XX)
 #undef _XX
 };
-//: ----------------------------------------------------------------------------
-//: tlsv12
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! tlsv12
+//! ----------------------------------------------------------------------------
 static const uint8_t g_tlsv12_opt[] = {
         0x00, 0x0a, // ext: supported_groups (10)
         0x00, 0x1c, // ext: length (28)
@@ -235,9 +235,9 @@ static const uint8_t g_tlsv12_opt[] = {
         0x00, 0x09, // sect283k1
         0x00, 0x0a, // sect283r1
 };
-//: ----------------------------------------------------------------------------
-//: tlsv13
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! tlsv13
+//! ----------------------------------------------------------------------------
 static const uint8_t g_tlsv13_opt[] = {
         0x00, 0x0a, // ext: supported_groups (10)
         0x00, 0x16, // ext: length (22)
@@ -253,9 +253,9 @@ static const uint8_t g_tlsv13_opt[] = {
         0x01, 0x03, // FFDHE6144
         0x01, 0x04, // FFDHE8192
 };
-//: ----------------------------------------------------------------------------
-//: sslv2 client l_hello
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! sslv2 client l_hello
+//! ----------------------------------------------------------------------------
 static const uint8_t g_sslv2_hello[] = {
         0x80,
         0x34,             // Length: 52
@@ -275,9 +275,9 @@ static const uint8_t g_sslv2_hello[] = {
         0x00, 0x00, 0x00, // TLS_NULL_WITH_NULL_NULL
         0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f // Challenge
 };
-//: ----------------------------------------------------------------------------
-//: sslv3 client l_hello pt 1
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! sslv3 client l_hello pt 1
+//! ----------------------------------------------------------------------------
 static const uint8_t g_sslv3_hello_pt1[] =
 {
         0x16,             // Content Type: Handshake (22)
@@ -287,9 +287,9 @@ static const uint8_t g_sslv3_hello_pt1[] =
         0x00, 0x00, 0xe4, // Length: 228
         0x03, 0x00,       // Version: SSL 3.0
 };
-//: ----------------------------------------------------------------------------
-//: sslv3 client l_hello pt 2
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! sslv3 client l_hello pt 2
+//! ----------------------------------------------------------------------------
 static const uint8_t g_sslv3_hello_pt2[] = {
         0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1a, 0x1b, // Random bytes
         0x00,       // Session ID Length
@@ -391,23 +391,23 @@ static const uint8_t g_sslv3_hello_pt2[] = {
         0x02,       // Compression Methods Length: 2
         0x01, 0x00, // DEFLATE, none
 };
-//: ----------------------------------------------------------------------------
-//: util
-//: ----------------------------------------------------------------------------
-//: ----------------------------------------------------------------------------
-//: \details: TODO
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! util
+//! ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: TODO
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 const char* get_protocol_str(protocol_t a_m)
 {
         return ELEM_AT(g_protocol_strings, a_m, "<unknown>");
 }
-//: ----------------------------------------------------------------------------
-//: \details: TODO
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: TODO
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 long get_protocol_opt_flag(protocol_t a_protocol)
 {
         switch(a_protocol)
@@ -422,11 +422,11 @@ long get_protocol_opt_flag(protocol_t a_protocol)
         default:               { return PROTOCOL_OP_FLAG_ALL;     break; }
         }
 }
-//: ----------------------------------------------------------------------------
-//: \details: returns byte string w/ list of all ciphersuites registered by IANA.
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: returns byte string w/ list of all ciphersuites registered by IANA.
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 static int32_t vb_gen_cipher_suites(vb_t& ao_cipher_suites, protocol_t a_protocol)
 {
         ao_cipher_suites.clear();
@@ -457,11 +457,11 @@ static int32_t vb_gen_cipher_suites(vb_t& ao_cipher_suites, protocol_t a_protoco
         }
         return STATUS_OK;
 }
-//: ----------------------------------------------------------------------------
-//: \details: adds default key_share extension.
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: adds default key_share extension.
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 static void vb_gen_tls_ext_add_default_key_share(vb_t& ao_vb)
 {
         // -------------------------------------------------
@@ -479,11 +479,11 @@ static void vb_gen_tls_ext_add_default_key_share(vb_t& ao_vb)
         }
         _VB_EXT_UPDATE_LEN(ao_vb);
 }
-//: ----------------------------------------------------------------------------
-//: \details: retrieves a tls handshake record
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: retrieves a tls handshake record
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 static int32_t get_tls_handshake_record(uint8_t* ao_record, conn& a_conn)
 {
         if(!ao_record)
@@ -556,11 +556,11 @@ static int32_t get_tls_handshake_record(uint8_t* ao_record, conn& a_conn)
         }
         return STATUS_OK;
 }
-//: ----------------------------------------------------------------------------
-//: \details: read server hello
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: read server hello
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 static int32_t get_server_hello(uint8_t* ao_hello, conn& a_conn)
 {
         if(!ao_hello)
@@ -588,16 +588,16 @@ static int32_t get_server_hello(uint8_t* ao_hello, conn& a_conn)
         }
         return STATUS_OK;
 }
-//: ----------------------------------------------------------------------------
-//: \details: creates a basic set of tls extensions,
-//:           including:
-//:             sni,
-//:             ec_point_formats,
-//:             session ticket,
-//:             signature_algorithms.
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: creates a basic set of tls extensions,
+//!           including:
+//!             sni,
+//!             ec_point_formats,
+//!             session ticket,
+//!             signature_algorithms.
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 static int32_t vb_gen_tls_ext(vb_t& ao_vb, const std::string& a_sni_name, bool add_sig_algo = false)
 {
         // -------------------------------------------------
@@ -647,14 +647,14 @@ done:
         _VB_EXT_UPDATE_LEN(ao_vb);
         return STATUS_OK;
 }
-//: ----------------------------------------------------------------------------
-//: \details: returns a byte string (which caller must later bs_free())
-//:           containing a TLS client hello message.  The 'tls_version' must be
-//:           one of TLSv1_? constants.  The specified ciphersuite list and
-//:           TLS extensions will be included.
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: returns a byte string (which caller must later bs_free())
+//!           containing a TLS client hello message.  The 'tls_version' must be
+//!           one of TLSv1_? constants.  The specified ciphersuite list and
+//!           TLS extensions will be included.
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 static int32_t vb_gen_client_hello(vb_t& ao_clnt_hello,
                                    protocol_t a_protocol,
                                    const vb_t& a_cipher_suites,
@@ -777,11 +777,11 @@ static int32_t vb_gen_client_hello(vb_t& ao_clnt_hello,
         _VB_ASSIGN_UINT16(ao_clnt_hello, 3, (l_clnt_hello_len-5));
         return STATUS_OK;
 }
-//: ----------------------------------------------------------------------------
-//: \details: TODO
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: TODO
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 int32_t check_sslv2(const host_info& a_host_info)
 {
         // -------------------------------------------------
@@ -823,11 +823,11 @@ int32_t check_sslv2(const host_info& a_host_info)
         }
         return STATUS_ERROR;
 }
-//: ----------------------------------------------------------------------------
-//: \details: TODO
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: TODO
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 int32_t check_sslv3(const host_info& a_host_info)
 {
         // -------------------------------------------------
@@ -900,11 +900,11 @@ int32_t check_sslv3(const host_info& a_host_info)
         }
         return STATUS_ERROR;
 }
-//: ----------------------------------------------------------------------------
-//: \details: TODO
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: TODO
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 int32_t check_tls(const host_info& a_host_info, protocol_t a_protocol)
 {
         int32_t l_s;
@@ -1084,11 +1084,11 @@ int32_t check_tls(const host_info& a_host_info, protocol_t a_protocol)
         if(l_hello) { free(l_hello); l_hello = NULL;}
         return STATUS_OK;
 }
-//: ----------------------------------------------------------------------------
-//: \details: TODO
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: TODO
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 int32_t check_fallback(const host_info& a_host_info, protocol_t a_protocol)
 {
 #ifdef SSL_MODE_SEND_FALLBACK_SCSV
@@ -1190,11 +1190,11 @@ int32_t check_fallback(const host_info& a_host_info, protocol_t a_protocol)
 #endif
         return STATUS_OK;
 }
-//: ----------------------------------------------------------------------------
-//: \details: TODO
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: TODO
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 int32_t check_reneg(const host_info& a_host_info)
 {
         // -------------------------------------------------
@@ -1280,11 +1280,11 @@ int32_t check_reneg(const host_info& a_host_info)
                ANSI_COLOR_FG_GREEN, ANSI_COLOR_OFF);
         return STATUS_OK;
 }
-//: ----------------------------------------------------------------------------
-//: \details: TODO
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: TODO
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 int32_t check_compression(const host_info& a_host_info)
 {
         // -------------------------------------------------
@@ -1341,11 +1341,11 @@ int32_t check_compression(const host_info& a_host_info)
         }
         return STATUS_OK;
 }
-//: ----------------------------------------------------------------------------
-//: \details: TODO
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: TODO
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 int32_t check_heartbleed(const host_info& a_host_info, protocol_t a_protocol)
 {
         // -------------------------------------------------
@@ -1473,11 +1473,11 @@ int32_t check_heartbleed(const host_info& a_host_info, protocol_t a_protocol)
         printf("%snot vulnerable%s to heartbleed\n", ANSI_COLOR_FG_GREEN, ANSI_COLOR_OFF);
         return STATUS_OK;
 }
-//: ----------------------------------------------------------------------------
-//: \details: outputs an accepted cipher to console and XML file.
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: outputs an accepted cipher to console and XML file.
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 static void print_cipher(protocol_t a_protocol,
                          bool a_first,
                          SSL* a_ssl)
@@ -1673,11 +1673,11 @@ static void print_cipher(protocol_t a_protocol,
         // -------------------------------------------------
         printf("\n");
 }
-//: ----------------------------------------------------------------------------
-//: \details: TODO
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: TODO
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 int32_t check_ciphers(const host_info& a_host_info, protocol_t a_protocol)
 {
         // -------------------------------------------------
@@ -1838,11 +1838,11 @@ int32_t check_ciphers(const host_info& a_host_info, protocol_t a_protocol)
 #endif
         return STATUS_OK;
 }
-//: ----------------------------------------------------------------------------
-//: \details: TODO
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: TODO
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 int32_t check_sig_algos(const host_info& a_host_info, protocol_t a_protocol)
 {
         // -------------------------------------------------
@@ -2016,11 +2016,11 @@ int32_t check_sig_algos(const host_info& a_host_info, protocol_t a_protocol)
         if(l_hello) { free(l_hello); l_hello = NULL;}
         return STATUS_OK;
 }
-//: ----------------------------------------------------------------------------
-//: \details: enumerates all the group key exchanges supported by the server.
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: enumerates all the group key exchanges supported by the server.
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 int32_t check_groups(const host_info& a_host_info, protocol_t a_protocol)
 {
         // -------------------------------------------------

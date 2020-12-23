@@ -1,15 +1,15 @@
-//: ----------------------------------------------------------------------------
-//: Copyright Verizon.
-//:
-//: \file:    ndebug.cc
-//: \details: TODO
-//:
-//: Licensed under the terms of the Apache 2.0 open source license.
-//: Please refer to the LICENSE file in the project root for the terms.
-//: ----------------------------------------------------------------------------
-//: ----------------------------------------------------------------------------
-//: Includes
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! Copyright Verizon.
+//!
+//! \file:    ndebug.cc
+//! \details: TODO
+//!
+//! Licensed under the terms of the Apache 2.0 open source license.
+//! Please refer to the LICENSE file in the project root for the terms.
+//! ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! Includes
+//! ----------------------------------------------------------------------------
 #include "ndebug.h"
 #include <string>
 #include <stdlib.h>
@@ -19,15 +19,15 @@
 #include <stddef.h>
 #include <execinfo.h> // support backtrace
 #include <cxxabi.h>   // support demangled symbols
-//: ----------------------------------------------------------------------------
-//: Constants
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! Constants
+//! ----------------------------------------------------------------------------
 namespace ns_tlsscan {
-//: ----------------------------------------------------------------------------
-//: \details: TODO
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: TODO
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 static int get_stack_string(char* ao_stack_str)
 {
         size_t stack_depth = 0;
@@ -69,11 +69,11 @@ static int get_stack_string(char* ao_stack_str)
         free(stack_strings); /* malloc'd by backtrace call */
         return 0;
 }
-//: ----------------------------------------------------------------------------
-//: \details: TODO
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: TODO
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 void print_bt(const char* a_file, const char* a_func, const int a_line)
 {
         //char tag[MAX_BACKTRACE_TAG_SIZE];
@@ -84,11 +84,11 @@ void print_bt(const char* a_file, const char* a_func, const int a_line)
                ANSI_COLOR_FG_YELLOW, a_file, a_func, ANSI_COLOR_OFF, a_line);
         printf("%s\n", func_str);
 }
-//: ----------------------------------------------------------------------------
-//: \details: TODO
-//: \return:  TODO
-//: \param:   TODO
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! \details: TODO
+//! \return:  TODO
+//! \param:   TODO
+//! ----------------------------------------------------------------------------
 void mem_display(const uint8_t* a_mem_buf, uint32_t a_length)
 {
         char l_display_line[256] = "";

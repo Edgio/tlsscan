@@ -1,25 +1,25 @@
-//: ----------------------------------------------------------------------------
-//: Copyright Verizon.
-//:
-//: \file:    protocol.h
-//: \details: TODO
-//:
-//: Licensed under the terms of the Apache 2.0 open source license.
-//: Please refer to the LICENSE file in the project root for the terms.
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! Copyright Verizon.
+//!
+//! \file:    protocol.h
+//! \details: TODO
+//!
+//! Licensed under the terms of the Apache 2.0 open source license.
+//! Please refer to the LICENSE file in the project root for the terms.
+//! ----------------------------------------------------------------------------
 #ifndef _TLSSCAN_PROTOCOL_H_
 #define _TLSSCAN_PROTOCOL_H_
-//: ----------------------------------------------------------------------------
-//: includes
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! includes
+//! ----------------------------------------------------------------------------
 #include <stdint.h>
 #include <openssl/ssl.h>
 #include "host_info.h"
 #include "def.h"
 namespace ns_tlsscan {
-//: ----------------------------------------------------------------------------
-//: constants
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! constants
+//! ----------------------------------------------------------------------------
 #define PROTOCOL_OP_FLAG_SSLv2   (SSL_OP_NO_SSLv3|SSL_OP_NO_TLSv1|SSL_OP_NO_TLSv1_1|SSL_OP_NO_TLSv1_2|SSL_OP_NO_TLSv1_3)
 #define PROTOCOL_OP_FLAG_SSLv3   (SSL_OP_NO_SSLv2|SSL_OP_NO_TLSv1|SSL_OP_NO_TLSv1_1|SSL_OP_NO_TLSv1_2|SSL_OP_NO_TLSv1_3)
 #define PROTOCOL_OP_FLAG_TLSv1   (SSL_OP_NO_SSLv2|SSL_OP_NO_SSLv3|SSL_OP_NO_TLSv1_1|SSL_OP_NO_TLSv1_2|SSL_OP_NO_TLSv1_3)
@@ -28,9 +28,9 @@ namespace ns_tlsscan {
 #define PROTOCOL_OP_FLAG_TLSv1_3 (SSL_OP_NO_SSLv2|SSL_OP_NO_SSLv3|SSL_OP_NO_TLSv1|SSL_OP_NO_TLSv1_1|SSL_OP_NO_TLSv1_2)
 #define PROTOCOL_OP_FLAG_ALL     (SSL_OP_NO_SSLv2)
 #define PROTOCOL_OP_FLAG_NO_v1_3 (SSL_OP_NO_TLSv1_3)
-//: ----------------------------------------------------------------------------
-//: protocol -> string mapping
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! protocol -> string mapping
+//! ----------------------------------------------------------------------------
 #define PROTOCOL_MAP(_XX) \
         _XX(0,  NONE,    NONE) \
         _XX(1,  SSLv2,   SSLv2) \
@@ -46,9 +46,9 @@ typedef enum _protocol
         PROTOCOL_MAP(_XX)
 #undef _XX
 } protocol_t;
-//: ----------------------------------------------------------------------------
-//: checks
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! checks
+//! ----------------------------------------------------------------------------
 int32_t check_sslv2(const host_info& a_host_info);
 int32_t check_sslv3(const host_info& a_host_info);
 int32_t check_tls(const host_info& a_host_info, protocol_t a_protocol);
@@ -59,9 +59,9 @@ int32_t check_heartbleed(const host_info& a_host_info, protocol_t a_protocol);
 int32_t check_ciphers(const host_info& a_host_info, protocol_t a_protocol);
 int32_t check_sig_algos(const host_info& a_host_info, protocol_t a_protocol);
 int32_t check_groups(const host_info& a_host_info, protocol_t a_protocol);
-//: ----------------------------------------------------------------------------
-//: util
-//: ----------------------------------------------------------------------------
+//! ----------------------------------------------------------------------------
+//! util
+//! ----------------------------------------------------------------------------
 const char* get_protocol_str(protocol_t a_m);
 long get_protocol_opt_flag(protocol_t a_protocol);
 }
