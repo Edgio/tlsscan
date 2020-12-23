@@ -134,3 +134,9 @@ INCLUDE(CPack)
 # include source and test directories
 # ------------------------------------------------------------------------------
 add_subdirectory(src)
+# ------------------------------------------------------------------------------
+# docs
+# ------------------------------------------------------------------------------
+add_custom_target(docs
+    COMMAND doxygen ${CMAKE_CURRENT_SOURCE_DIR}/doxygen.conf WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+)
