@@ -17,14 +17,6 @@ build:
     - cat /etc/lsb-release
     - apt-get update
     - apt-get install -y sudo lsb-release apt-transport-https ca-certificates curl git python3 python3-pip build-essential software-properties-common cmake
-    - |
-        if [[ ${UBUNTU_VERSION} == "16.04" ]]; then
-            add-apt-repository -y ppa:ubuntu-toolchain-r/test
-            apt-get update
-            apt-get install -y gcc-7 g++-7
-            update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 70 --slave /usr/bin/g++ g++ /usr/bin/g++-7
-            update-alternatives --auto gcc
-        fi
   script:
     - ./build.sh
     - DIST=$(lsb_release -s -c)
