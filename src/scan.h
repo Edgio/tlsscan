@@ -38,7 +38,8 @@ typedef struct scan_opt
                 m_show_trust_ca(false),
                 m_show_client_ciphers(false),
                 m_port(443),
-                m_tls_options()
+                m_tls_options(),
+                m_servername()
         {
                 m_tls_options = SSL_OP_ALL;
         }
@@ -59,6 +60,7 @@ typedef struct scan_opt
         bool m_show_client_ciphers;
         uint16_t m_port;
         long m_tls_options;
+        std::string m_servername;
 private:
         // -------------------------------------------------
         //
