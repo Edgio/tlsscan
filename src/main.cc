@@ -76,6 +76,7 @@ static void print_usage(FILE* a_stream, int a_exit_code)
         fprintf(a_stream, "  -x, --curves              check elliptic curves.\n");
         fprintf(a_stream, "  -m, --compression         check for compression.\n");
         fprintf(a_stream, "  -e, --heartbleed          check for heartbleed.\n");
+        fprintf(a_stream, "  -n, --servername          set TLS ext servername (SNI) in ClientHello.\n");
         fprintf(a_stream, "  \n");
         fprintf(a_stream, "Display Options:\n");
         fprintf(a_stream, "  -L, --show_client_ciphers show supported client ciphers.\n");
@@ -127,6 +128,7 @@ int main(int argc, char** argv)
                 { "curves",              no_argument,       0, 'x' },
                 { "compression",         no_argument,       0, 'm' },
                 { "heartbleed",          no_argument,       0, 'e' },
+                { "servername",          required_argument, 0, 'n' },
                 { "show_client_ciphers", no_argument,       0, 'L' },
                 { "show_cas",            no_argument,       0, 'A' },
 #ifdef ENABLE_PROFILER
@@ -140,9 +142,9 @@ int main(int argc, char** argv)
         // args...
         // -------------------------------------------------
 #ifdef ENABLE_PROFILER
-        char l_short_arg_list[] = "hV46tcsaxmeLAG:H:";
+        char l_short_arg_list[] = "hV46t:csaxmen:LAG:H:";
 #else
-        char l_short_arg_list[] = "hV46tcsaxmeLA";
+        char l_short_arg_list[] = "hV46t:csaxmen:LA";
 #endif
         while(((unsigned char)l_opt != 255))
         {
@@ -199,6 +201,7 @@ int main(int argc, char** argv)
                         l_s = ns_tlsscan::get_tls_options_str_val(l_arg, l_tls_options);
                         if(l_s != STATUS_OK)
                         {
+                                fprintf(stdout, "error performing get_tls_options_str_val with string: %s.\n", l_arg.c_str());
                                 return STATUS_ERROR;
                         }
                         l_scan_opt.m_tls_options = l_tls_options;
@@ -250,6 +253,14 @@ int main(int argc, char** argv)
                 case 'e':
                 {
                         l_scan_opt.m_check_heartbleed = true;
+                        break;
+                }
+                // -----------------------------------------
+                // servername
+                // -----------------------------------------
+                case 'n':
+                {
+                        l_scan_opt.m_servername = l_arg;
                         break;
                 }
                 // -----------------------------------------
@@ -413,6 +424,13 @@ int main(int argc, char** argv)
                 l_host_str,
                 l_port_str,
                 ANSI_COLOR_OFF);
+        }
+        // -------------------------------------------------
+        // override host
+        // -------------------------------------------------
+        if (!l_scan_opt.m_servername.empty())
+        {
+             l_host_info.m_host = l_scan_opt.m_servername;
         }
         // -------------------------------------------------
         // scan host
