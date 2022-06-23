@@ -1,5 +1,5 @@
 //! ----------------------------------------------------------------------------
-//! Copyright Edgecast Inc.
+//! Copyright Edgio Inc.
 //!
 //! \file:    main.cc
 //! \details: TODO
@@ -48,7 +48,7 @@ void print_version(FILE* a_stream, int a_exit_code)
 {
         // print out the version information
         fprintf(a_stream, "tlsscan tls/ssl protocol scanner.\n");
-        fprintf(a_stream, "Copyright (C) Edgecast Inc.\n");
+        fprintf(a_stream, "Copyright (C) Edgio Inc.\n");
         fprintf(a_stream, "               Version: %s\n", TLSSCAN_VERSION);
         fprintf(a_stream, "       OpenSSL Version: %s\n", SSLeay_version(SSLEAY_VERSION));
         exit(a_exit_code);
