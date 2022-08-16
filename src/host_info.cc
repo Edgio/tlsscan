@@ -1,5 +1,5 @@
 //! ----------------------------------------------------------------------------
-//! Copyright Verizon.
+//! Copyright Edgio Inc.
 //!
 //! \file:    host_info.cc
 //! \details: TODO

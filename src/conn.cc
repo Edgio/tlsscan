@@ -1,5 +1,5 @@
 //! ----------------------------------------------------------------------------
-//! Copyright Verizon.
+//! Copyright Edgio Inc.
 //!
 //! \file:    conn.cc
 //! \details: TODO

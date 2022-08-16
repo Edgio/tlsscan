@@ -1,4 +1,4 @@
-![tlsscan-ci](https://github.com/VerizonDigital/tlsscan/workflows/tlsscan-ci/badge.svg)
+![tlsscan-ci](https://github.com/edgioinc/tlsscan/workflows/tlsscan-ci/badge.svg)
 
 # tlsscan
 > _TLS/SSL protocol/cipher scanner (based on work from [sslscan](https://github.com/rbsec/sslscan))_

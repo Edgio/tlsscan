@@ -2,10 +2,7 @@
 # Project setup
 # ------------------------------------------------------------------------------
 project(tlsscan)
-cmake_minimum_required(VERSION 2.8.0)
-if (POLICY CMP0050)
-    cmake_policy(SET CMP0050 OLD)
-endif()
+cmake_minimum_required(VERSION 3.10)
 # ------------------------------------------------------------------------------
 # Build options
 # ------------------------------------------------------------------------------
