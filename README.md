@@ -108,14 +108,17 @@ Run Options:
   -4, --ipv4                resolve name to IPv4 address.
   -6, --ipv6                resolve name to IPv6 address.
   -t, --tls_options         TLS options string.
+  -c, --cert                check cert info.
   -s, --ocsp                check OCSP response.
+  -a, --sig_algo            check signature algorithms.
+  -x, --curves              check elliptic curves.
   -m, --compression         check for compression.
   -e, --heartbleed          check for heartbleed.
+  -n, --servername          set TLS ext servername (SNI) in ClientHello.
   
 Display Options:
-  -C, --show_cert           show server cert info.
-  -A, --show_cas            show trusted CA's for client auth.
   -L, --show_client_ciphers show supported client ciphers.
+  -A, --show_cas            show trusted CA's for client auth.
 
 ```
 
@@ -127,4 +130,3 @@ Display Options:
 ## License
 
 This project is licensed under the terms of the Apache 2.0 open source license. Please refer to the `LICENSE-2.0.txt` file for the full terms.
-
