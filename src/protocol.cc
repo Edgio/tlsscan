@@ -909,18 +909,16 @@ int32_t check_tls(const host_info& a_host_info, protocol_t a_protocol)
 {
         int32_t l_s;
         // -------------------------------------------------
-        // include server sig for tlsv1.3
-        // ???
+        // include server sig for tls versions only
         // -------------------------------------------------
         bool l_include_server_sig = false;
-#if 1
-        if(a_protocol == PROTOCOL_TLSv1_3)
+        if((a_protocol == PROTOCOL_TLSv1_3) ||
+           (a_protocol == PROTOCOL_TLSv1_2) ||
+           (a_protocol == PROTOCOL_TLSv1_1) ||
+           (a_protocol == PROTOCOL_TLSv1))
         {
                 l_include_server_sig = true;
         }
-#else
-        l_include_server_sig = true;
-#endif
         UNUSED(g_tlsv12_opt);
         UNUSED(g_tlsv13_opt);
         UNUSED(l_include_server_sig);
