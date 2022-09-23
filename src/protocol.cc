@@ -934,6 +934,16 @@ int32_t check_tls(const host_info& a_host_info, protocol_t a_protocol)
         switch(a_protocol)
         {
         // -------------------------------------------------
+        // PROTOCOL_TLSv1
+        // -------------------------------------------------
+        case PROTOCOL_TLSv1:
+        // fallthru
+        // -------------------------------------------------
+        // PROTOCOL_TLSv1_1
+        // -------------------------------------------------
+        case PROTOCOL_TLSv1_1:
+        // fallthru
+        // -------------------------------------------------
         // PROTOCOL_TLSv1_2
         // -------------------------------------------------
         case PROTOCOL_TLSv1_2:
